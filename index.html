@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی کویز و پلانی ڕۆژانەی دییە و سنە</title>
+    <title>پلاتفۆرمی کویزی وزاری و خشتەی پۆلی ١٢</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,11 +20,11 @@
         body { background-color: var(--bg-light); color: var(--text-color); padding-bottom: 40px; }
         header { background: linear-gradient(135deg, #f8a5c2, #f78fb3); color: white; padding: 20px; text-align: center; box-shadow: var(--shadow); }
         header h1 { font-size: 22px; margin-bottom: 5px; }
-        
-        /* Modal for Registration */
+
+        /* Registration Modal */
         #register-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;
+            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-content {
             background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
@@ -39,134 +39,236 @@
             background: var(--accent-pink); color: white; border: none; padding: 12px 20px;
             border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px;
         }
-        
+
         nav { display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; padding: 0 10px; }
-        .tab-btn { background-color: var(--card-bg); border: 2px solid var(--primary-pink); color: var(--dark-pink); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 14px; }
+        .tab-btn { background-color: var(--card-bg); border: 2px solid var(--primary-pink); color: var(--dark-pink); padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 14px; }
         .tab-btn.active, .tab-btn:hover { background-color: var(--accent-pink); color: white; }
+        
         .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
         .section { display: none; background: var(--card-bg); padding: 20px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid var(--soft-pink); }
         .section.active { display: block; }
+        
         .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 15px; }
-        .subject-card { background: var(--soft-pink); padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .subject-card { background: var(--soft-pink); padding: 15px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
         .subject-card:hover { border-color: var(--primary-pink); transform: translateY(-3px); }
-        .subject-card h3 { color: var(--dark-pink); font-size: 15px; }
+        .subject-card h3 { color: var(--dark-pink); font-size: 16px; }
         .subject-card p { font-size: 12px; color: #666; margin-top: 4px; }
+
         .quiz-container { margin-top: 20px; }
-        .question-box { background: var(--soft-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .options { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .option-btn { background: white; border: 1px solid var(--primary-pink); padding: 10px; border-radius: 8px; cursor: pointer; text-align: right; transition: 0.2s; font-size: 14px; }
-        .option-btn:hover { background: var(--soft-pink); }
-        .stats-badge { display: inline-block; background: var(--accent-pink); color: white; padding: 5px 12px; border-radius: 15px; font-size: 13px; margin-bottom: 15px; }
-        .chat-box { height: 250px; border: 1px solid var(--soft-pink); border-radius: 12px; overflow-y: auto; padding: 12px; background: #fffafa; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
-        .chat-msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 13px; }
-        .chat-msg.bot { background: var(--soft-pink); color: var(--dark-pink); align-self: flex-start; }
-        .chat-msg.user { background: var(--accent-pink); color: white; align-self: flex-end; }
-        .chat-input-area { display: flex; gap: 8px; }
-        .chat-input-area input { flex: 1; padding: 10px 14px; border: 1px solid var(--primary-pink); border-radius: 20px; outline: none; font-size: 14px; }
-        .btn-send { background: var(--accent-pink); color: white; border: none; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .question-box { background: var(--soft-pink); padding: 18px; border-radius: 15px; margin-bottom: 15px; }
+        .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+        .option-btn { background: white; border: 1px solid var(--primary-pink); padding: 12px; border-radius: 10px; cursor: pointer; text-align: right; transition: 0.2s; font-size: 14px; color: #333; }
+        .option-btn:hover { background: var(--soft-pink); border-color: var(--dark-pink); }
+        .stats-badge { display: inline-block; background: var(--accent-pink); color: white; padding: 6px 14px; border-radius: 15px; font-size: 13px; margin-bottom: 15px; }
+
+        /* Schedule / Timetable Cards */
+        .schedule-card { background: var(--soft-pink); border-right: 5px solid var(--dark-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .schedule-card h3 { color: var(--dark-pink); margin-bottom: 8px; font-size: 16px; }
+        .schedule-card ul { list-style: none; padding-right: 15px; }
+        .schedule-card li { margin-bottom: 6px; font-size: 14px; position: relative; }
+        .schedule-card li::before { content: "•"; color: var(--dark-pink); font-weight: bold; position: absolute; right: -12px; }
+
+        /* Leaderboard */
         .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
-        .leaderboard-table th, .leaderboard-table td { padding: 10px; text-align: center; border-bottom: 1px solid var(--soft-pink); }
+        .leaderboard-table th, .leaderboard-table td { padding: 12px; text-align: center; border-bottom: 1px solid var(--soft-pink); }
         .leaderboard-table th { background-color: var(--soft-pink); color: var(--dark-pink); }
-        .rank-1 { font-weight: bold; color: #d4af37; }
     </style>
 </head>
 <body>
 
-    <!-- Registration Modal -->
+    <!-- Modal Registration -->
     <div id="register-modal">
         <div class="modal-content">
-            <h2>بەخێر بێیت بۆ پلاتفۆرمی پۆلی ١٢ ✨</h2>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">تکایە ناوێک بنووسە بۆ ئەوەی لە لیدەربۆرد ناوت تۆمار ببێت:</p>
-            <input type="text" id="username-input" placeholder="ناوی تەواوی خۆت...">
-            <button onclick="registerUser()">چوونەژوورەوە و دەستپێکردن</button>
+            <h2>بەخێر بێیت بۆ کویزی وزاری پۆلی ١٢ 🌸</h2>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">ناوی خۆت تۆمار بکە بۆ بەشداری لە ڕیزبەندی لیدەربۆرد:</p>
+            <input type="text" id="username-input" placeholder="ناوی تەواوت بنووسە...">
+            <button onclick="registerUser()">دەستپێکردن</button>
         </div>
     </div>
 
     <header>
-        <h1>کویزی ڕۆژانە و پلانی خوێندن پۆلی ١٢ ✨</h1>
-        <p id="welcome-user-banner">ڕۆژانە ٥ پرسیار شیکار بکە</p>
+        <h1>کویزی ڕۆژانە و خشتەی خوێندنی پۆلی ١٢ ✨</h1>
+        <p id="welcome-user-banner">ڕۆژانە ٥ پرسیاری وزاری لە هەر بابەتێک شیکار بکە</p>
     </header>
 
     <div class="container">
         <nav>
-            <button class="tab-btn active" onclick="showSection('quiz-section', event)">کویزی ڕۆژانە</button>
-            <button class="tab-btn" onclick="showSection('planner-section', event)">پلاندنەر (AI Chat)</button>
+            <button class="tab-btn active" onclick="showSection('quiz-section', event)">کویزی ڕۆژانە (٥ پرسیار)</button>
+            <button class="tab-btn" onclick="showSection('schedule-section', event)">خشتەی تایبەتی خوێندن</button>
             <button class="tab-btn" onclick="showSection('leaderboard-section', event)">پلەی بۆرد / Leaderboard</button>
         </nav>
 
+        <!-- Quiz Section -->
         <div id="quiz-section" class="section active">
             <h2>بابەتێک هەڵبژێرە</h2>
-            <p style="color: #777; margin-bottom: 15px; font-size: 13px;">کۆی گشتی ١٤٠ پرسیاری مانگانە (ڕۆژانە ٥ پرسیار بۆ هەر بابەتێک)</p>
+            <p style="color: #777; margin-bottom: 15px; font-size: 13px;">تەنها ڕێگەت پێدەدرێت ڕۆژانە ٥ پرسیاری وزاری شیکار بکەیت لە هەر بابەتێکدا.</p>
 
             <div class="subjects-grid">
-                <div class="subject-card" onclick="startQuiz('زیندەزانی (بەندی ١ و ٢)')"><h3>زیندەزانی</h3><p>بەندی ۱ و ۲</p></div>
-                <div class="subject-card" onclick="startQuiz('فیزیا (بەندی ١ و ٢)')"><h3>فیزیا</h3><p>بەندی ۱ و ۲</p></div>
-                <div class="subject-card" onclick="startQuiz('کیمیا (بەندی ١ و ٢)')"><h3>کیمیا</h3><p>بەندی ۱ و ۲</p></div>
-                <div class="subject-card" onclick="startQuiz('بیرکاری (بەشی ١ و ٢)')"><h3>بیرکاری</h3><p>بەشی ۱ و ۲</p></div>
-                <div class="subject-card" onclick="startQuiz('عەرەبی (وەحدەی ١ و ٢)')"><h3>عەرەبی</h3><p>وەحدەی ۱ و ۲</p></div>
-                <div class="subject-card" onclick="startQuiz('کوردی (ڕێژەی ڕاگەیاندن...)')"><h3>کوردی</h3><p>ڕێژەی ڕاگەیاندن و مەرجی</p></div>
-                <div class="subject-card" onclick="startQuiz('ئاین (وانەی ١ تا ٥)')"><h3>ئاین</h3><p>وانەی ۱ تا ۵</p></div>
-                <div class="subject-card" onclick="startQuiz('ئینگلیزی (Unit 1-3)')"><h3>ئینگلیزی</h3><p>Unit 1, 2, 3</p></div>
+                <div class="subject-card" onclick="startQuiz('bio')"><h3>زیندەزانی</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('phy')"><h3>فیزیا</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('chem')"><h3>کیمیا</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('math')"><h3>بیرکاری</h3><p>بەشی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('ara')"><h3>عەرەبی</h3><p>وەحدەی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('kur')"><h3>کوردی</h3><p>ڕاگەیاندن، دانانی، مەرجی</p></div>
+                <div class="subject-card" onclick="startQuiz('isll')"><h3>ئاین</h3><p>وانەی ۱ تا ۵</p></div>
+                <div class="subject-card" onclick="startQuiz('eng')"><h3>ئینگلیزی</h3><p>Unit 1, 2, 3</p></div>
             </div>
 
             <div id="quiz-area" class="quiz-container" style="display: none;">
                 <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--soft-pink);">
-                <span class="stats-badge" id="user-stats">تێکڕای شیکارکردنی تۆ: ٠/١٤٠ پرسیار</span>
-                <h3 id="current-subject-title" style="color: var(--dark-pink); margin-bottom: 10px;">بابەت: </h3>
-                <div class="question-box">
-                    <p id="question-text" style="font-weight: 600;">پرسیاری ١: ...</p>
+                <span class="stats-badge" id="daily-limit-badge">پرسیاری 1 لە 5ی ئەمڕۆ</span>
+                <span class="stats-badge" id="user-total-score">تێکڕای وەڵامی ڕاست: 0/140</span>
+                <h3 id="current-subject-title" style="color: var(--dark-pink); margin-bottom: 10px;"></h3>
+                
+                <div class="question-box" id="question-box-body">
+                    <p id="question-text" style="font-weight: 600; font-size: 15px;"></p>
                     <div class="options" id="options-container"></div>
                 </div>
             </div>
         </div>
 
-        <div id="planner-section" class="section">
-            <h2>یارمەدیدەری زیرەک بۆ پلانی خوێندن 🤖💡</h2>
-            <p style="margin-bottom: 12px; color: #666; font-size: 13px;">پرسیار لە ئەی ئای بکە بۆ ڕێکخستنی کاتەکانی خوێندن.</p>
-            <div class="chat-box" id="chat-box">
-                <div class="chat-msg bot">سڵاو! من یاریدەدەری ئەی ئایم. چەند کاتژمێر ئەتوانیت بخوێنیت؟</div>
+        <!-- Schedule Section -->
+        <div id="schedule-section" class="section">
+            <h2 style="color: var(--dark-pink); margin-bottom: 15px;">📅 خشتەی تایبەتی جێبەجێکردنی خوێندن</h2>
+            
+            <div class="schedule-card">
+                <h3>📌 یەکشەممە و دووشەممە</h3>
+                <ul>
+                    <li><b>٠٧:٠٠ی بەیانی:</b> هەستان لە خەو</li>
+                    <li><b>٠٨:٠٠ - ١٠:٠٠ی بەیانی:</b> ژەم و دەستپێکردنی بڕی خوێندنی یەکەم</li>
+                    <li><b>٠٧:٠٠ - ١٠:٠٠ی شەو:</b> بەشی دووەمی خوێندن</li>
+                </ul>
             </div>
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="وەڵامەکەت بنووسە...">
-                <button class="btn-send" onclick="sendMessage()">ناردن</button>
+
+            <div class="schedule-card">
+                <h3>📌 سێشەممە، چوارشەممە، پێنجشەممە</h3>
+                <ul>
+                    <li><b>٠٢:٠٠ - ٠٥:٠٠ی ئێوارە:</b> دەستپێکردنی بڕی خوێندنی یەکەم</li>
+                    <li><b>٠٧:٠٠ - ١٠:٠٠ یان ١١:٠٠ی شەو:</b> بەشی دووەمی خوێندن</li>
+                </ul>
+            </div>
+
+            <div class="schedule-card">
+                <h3>📌 شەممە و جومعە (هەینی)</h3>
+                <ul>
+                    <li><b>٠٨:٠٠ - ١١:٠٠ی بەیانی:</b> بەشی یەکەمی خوێندنی بەیانیان</li>
+                    <li><b>٠٢:٠٠ - ٠٥:٠٠ی ئێوارە:</b> دەستپێکردنەوە لە نیوەڕوان</li>
+                    <li><b>٠٧:٠٠ - ١٠:٠٠ یان ١١:٠٠ی شەو:</b> خوێندنی شوانە</li>
+                </ul>
             </div>
         </div>
 
+        <!-- Leaderboard Section -->
         <div id="leaderboard-section" class="section">
-            <h2>🏆 پلەی بۆردی یەکەمەکانی مانگ</h2>
-            <p style="color: #666; font-size: 13px; margin-bottom: 10px;">ڕیزبەندی بەکاربەرەکان بە پێی زۆرترین وەڵامی ڕاست:</p>
+            <h2>🏆 پلەی بۆردی ڕاستەقینە (یەکەمەکانی مانگ)</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 15px;">ڕیزبەندی بەکاربەرە بەشداریبووەکان بەپێی شیکاری ڕاستی پرسیارە وزارییەکان:</p>
             <table class="leaderboard-table">
                 <thead>
                     <tr>
                         <th>پلە</th>
-                        <th>ناو</th>
-                        <th>وەڵامی ڕاست</th>
-                        <th>پۆینت</th>
+                        <th>ناوی بەکاربەر</th>
+                        <th>شیکاری ڕاست (لە ١٤٠)</th>
+                        <th>خاڵ</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                    <tr class="rank-1"><td>1 👑</td><td id="lb-user-name">-</td><td id="lb-user-score">٠ / ١٤٠</td><td id="lb-user-pts">٠</td></tr>
-                    <tr><td>2</td><td>سارا محەمەد</td><td>١٣٢ / ١٤٠</td><td>١٣٢0</td></tr>
-                    <tr><td>3</td><td>ڕێبین عومەر</td><td>١٢٥ / ١٤٠</td><td>١٢٥0</td></tr>
+                    <!-- Dynamic Rows -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        let currentUserName = "";
-        let totalSolved = 0;
+        // Real Ministerial Questions Bank (Grade 12 Kurdistan)
+        const quizBank = {
+            bio: [
+                { q: "وزاری: کام لەمانەی خوارەوە بەشێک نییە لە ڕێنیشاندانی ناوکی؟", opts: ["پرۆمۆتەر", "ڕیبۆسۆم", "ئۆپەرۆن", "ئینتڕۆن"], a: 1 },
+                { q: "وزاری: لە کردارێکی وەرگێڕاندا، کۆدۆنی دەستپێک (AUG) کۆد بۆ کام ترشی ئەمینۆ دەکات؟", opts: ["میسێۆنین", "ڤالین", "لیۆسین", "لیسین"], a: 0 },
+                { q: "وزاری: ئەنزیمی RNA پۆلیمێریز لە کام ئاڕاستەدا زنجیرەی RNA دروست دەکات؟", opts: ["3' بۆ 5'", "5' بۆ 3'", "لە هەردوو ئاڕاستەدا", "بەپێی بڕی سێنتڕۆمێر"], a: 1 },
+                { q: "وزاری: جیاوازی سەرەکی نێوان DNA و RNA بریتییە لە هەبوونی شەکری:", opts: ["ڕایبۆز لە DNA", "دیۆکسی ڕایبۆز لە DNA", "گلوکۆز لە RNA", "فرۆکتۆز لە DNA"], a: 1 },
+                { q: "وزاری: نەخۆشی نیشانەی داون (Down Syndrome) لە ئەنجامی چ کێشەیەکی کڕۆمۆسۆمی دروست دەبێت؟", opts: ["زیادبوونی کڕۆمۆسۆمی 21", "کەمبوونی کڕۆمۆسۆمی X", "زیادبوونی کڕۆمۆسۆمی 18", "سڕینەوەی کڕۆمۆسۆمی 5"], a: 0 }
+            ],
+            phy: [
+                { q: "وزاری: یاسای کەمترین کارکردن (Work-Energy Theorem) پەیوەندی نێوان کار و چی دەردەبڕێت؟", opts: ["گۆڕانی وزەی جووڵە", "هێزی لێکخشاندن", "کێش", "خێرایی گۆشەیی"], a: 0 },
+                { q: "وزاری: یەکەی پێوانی زەبری هێز (Torque) لە سیستەمی me-SI بریتییە لە:", opts: ["N.m", "Joule", "Watt", "N/m"], a: 0 },
+                { q: "وزاری: کاتێک تەوەرەی خولانەوە بکەوێتە سەر چەقی بارستایی تەنێک، زەبری سستی (I) چۆن دەبێت؟", opts: ["کەمترین بڕە", "زیاترین بڕە", "سفر دەبێت", "بێ کۆتایی دەبێت"], a: 0 },
+                { q: "وزاری: تەوژمی هێز (Impulse) یەکسانە بە گۆڕانکاری لە چی؟", opts: ["بڕی جووڵە (Momentum)", "وزەی شاراوە", "خێرایی ساتەوەخت", "تاودانی زەوی"], a: 0 },
+                { q: "وزاری: ئەگەر خێرایی تەنێک دوو هێندە بێت، وزەی جووڵەکەی (KE) چەند هێندە دەبێت؟", opts: ["4 هێندە", "2 هێندە", "8 هێندە", "نیوە دەبێت"], a: 0 }
+            ],
+            chem: [
+                { q: "وزاری: بەپێی تیۆری برۆنستێد-لۆری، ترش بریتییە لە ماددەیەک کە:", opts: ["پڕۆتۆن (H+) دەبەخشێت", "پڕۆتۆن وەردەگرێت", "هایدرۆکسید بەررهەم دەهێنێت", "ئەلێکتڕۆن دەبەخشێت"], a: 0 },
+                { q: "وزاری: هایدرۆکسیدی سۆدیۆم (NaOH) نموونەیە بۆ چ جۆرە بازێک؟", opts: ["بازی بەهێز", "بازی بێهێز", "ترشی بێهێز", "خوێی هاوسەنگ"], a: 0 },
+                { q: "وزاری: ئەگەر pHی گیراوەیەک یەکسان بێت بە 3، ئەوا ئەم گیراوەیە:", opts: ["ترشی بەهێزە", "بازی بەهێزە", "هاوکێشە (7)", "بازی بێهێزە"], a: 0 },
+                { q: "وزاری: هاوکێشەی هاوسەنگی (Ka) بۆ ترشی بێهێز کاتێک بڕەکەی گەورەتر بێت، واتە ترشەکە:", opts: ["بەهێزترە", "بێهێزترە", "هیچ پەیوەندییەکی نییە", "دەبێتە باز"], a: 0 },
+                { q: "وزاری: پڕۆسەی نەوتڕالیزەیشن (Neutralization) ئەنجامەکەی دروستبوونی چییە؟", opts: ["خوێ + ئاو", "ترش + گاز", "باز + ئۆکسجین", "هایدرۆجین + کاربۆن"], a: 0 }
+            ],
+            math: [
+                { q: "وزاری: داهاتووی دەرئەنجامی (Derivative) نەخشەی f(x) = x^3 - 4x بریتییە لە:", opts: ["3x^2 - 4", "3x - 4", "x^2 - 4", "6x"], a: 0 },
+                { q: "وزاری: ڕووبەری بن سێبەری نەخشەی f(x) لە دووری دیاریکراودا بە چی دەدۆزرێتەوە؟", opts: ["تەواوکاری (Integration)", "داهاتوو (Derivative)", "سنوور (Limit)", "لێژبوونی هێڵ"], a: 0 },
+                { q: "وزاری: لێژبوونی هێڵی بەرکەوت (Tangent slope) لە خاڵێکدا یەکسانە بە:", opts: ["f'(x)", "f(x)", "Integral f(x)", "f''(x)"], a: 0 },
+                { q: "وزاری: سنووری Lim (x->0) (sin x / x) یەکسانە بە چی؟", opts: ["1", "0", "ئەنجامی دیارینەکراو", "بێ کۆتایی"], a: 0 },
+                { q: "وزاری: نەخشەی f(x) = |x| لە خاڵی x = 0 دا دارای چییە؟", opts: ["نەبوونی داهاتوو (Not Differentiable)", "داهاتووی یەکسان بە 1", "لێژبوونی بێ کۆتایی", "خاڵی وەرگەڕان"], a: 0 }
+            ],
+            ara: [
+                { q: "وزاری: "ما" في جملة "ما أجمَلَ السَّماءَ" هي ما:", opts: ["التعجبية", "النافية", "الموصولة", "الاستفهامية"], a: 0 },
+                { q: "وزاری: إعراب كلمة "طالباً" في (يا طالباً العِلمَ اجتهد):", opts: ["منادى منصوب", "فاعل مرفوع", "مفعول به", "مضاف إليه"], a: 0 },
+                { q: "وزاری: الفعل المشتق من (استغفار) هو:", opts: ["استغفرَ", "غَفَرَ", "غافِر", "مغفور"], a: 0 },
+                { q: "وزاری: "إنَّ المعلمينَ محبوبونَ"، كلمة "المعلمين" هي:", opts: ["اسم إن منصوب بالياء", "خبر إن مرفوع", "مبتدأ مرفوع", "فاعل منصوب"], a: 0 },
+                { q: "وزاری: الوزن الصرفي لكلمة "مُستشفی" هو:", opts: ["مُستفعَل", "مُسْتفِعْل", "مُتَفَعِّل", "فُعْلَى"], a: 0 }
+            ],
+            kur: [
+                { q: "وزاری: لە ڕستەی (ئەگەر سەعی بکەیت، سەردەکەویت)، ئامرازی مەرج بریتییە لە:", opts: ["ئەگەر", "سەعی", "بکەیت", "سەردەکەویت"], a: 0 },
+                { q: "وزاری: لە بەشی دەنگسازیدا، پیتەکانی (ب ، پ ، م) دەنگی چیین؟", opts: ["لێوانەیی", "ددانەیی", "زمانەیی", "گەروویی"], a: 0 },
+                { q: "وزاری: ڕستەی (نامەکەم نوسی)، لە ڕووی داڕشتنەوە چ جۆرە ڕستەیەکە؟", opts: ["تێپەڕ", "تێنەپەڕ", "داخوازی", "ئاوێتەی مەرجی"], a: 0 },
+                { q: "وزاری: جۆری ئامرازی (واتە / یاخود) بریتییە لە ئامرازی:", opts: ["پەیوەندی", "دابڕان", "سەرسوڕمان", "پاشگر"], a: 0 },
+                { q: "وزاری: لە ڕستەی (بچۆ بۆ قوتابخانە!)، کرداری (بچۆ) جۆری چییە؟", opts: ["کرداری داخوازی", "کرداری ڕابردوو", "کرداری مەرجی", "ناوى بکەر"], a: 0 }
+            ],
+            isll: [
+                { q: "وزاری: یەکەم ئایەتی قورئانی پیرۆز کە بەسەر پێغەمبەردا (د.خ) دابەزی لەسەر چی بوو؟", opts: ["خوێندنەوە (اقرأ)", "نوێژکردن", "زەکاتدان", "جیهاد"], a: 0 },
+                { q: "وزاری: کۆڵەکەی دووەمی ئیسلام بریتییە لە:", opts: ["نوێژکردن", "ڕۆژووگرتن", "زەکاتدان", "حەجکردن"], a: 0 },
+                { q: "وزاری: مانای وشەی (التقوى) لە ئیسلامدا بریتییە لە:", opts: ["پارێزکاری و ترسان لە خوا", "پێبەخشینی سەروەت", "زۆری نوێژکردن", "ڕاستگۆیی لە بازرگانیدا"], a: 0 },
+                { q: "وزاری: سەحابەی بەڕێز (ئەبوبەکری صدیق) چەندەم خەلیفەی ئیسلام بوو؟", opts: ["خەلیفەی یەکەم", "خەلیفەی دووەم", "خەلیفەی سێیەم", "خەلیفەی چوارەم"], a: 0 },
+                { q: "وزاری: سورەتی (الفاتحة) ناوی تری چییە؟", opts: ["أم الكتاب", "القلب", "عروس القرآن", "الآية الكبرى"], a: 0 }
+            ],
+            eng: [
+                { q: "Ministerial: Choose the correct option: If he _______ hard, he will pass the exam.", opts: ["studies", "studied", "will study", "study"], a: 0 },
+                { q: "Ministerial: "She has been working here _______ 2020." Which preposition is correct?", opts: ["since", "for", "in", "during"], a: 0 },
+                { q: "Ministerial: What is the passive voice of: 'They built the bridge'?", opts: ["The bridge was built.", "The bridge is built.", "The bridge had built.", "The bridge built."], a: 0 },
+                { q: "Ministerial: Find the synonym of 'Crucial':", opts: ["Very Important", "Simple", "Small", "Useless"], a: 0 },
+                { q: "Ministerial: 'If I were you, I _______ buy that expensive car.'", opts: ["wouldn't", "won't", "don't", "haven't"], a: 0 }
+            ]
+        };
+
+        let currentUserName = localStorage.getItem("quiz_username") || "";
+        let currentSubjectKey = "";
+        let currentSubjectIndex = 0;
+        
+        // Progress store per subject per user
+        let userScores = JSON.parse(localStorage.getItem("user_scores") || "{}");
+
+        window.onload = function() {
+            if(!currentUserName) {
+                document.getElementById('register-modal').style.display = 'flex';
+            } else {
+                setupUser();
+            }
+        };
 
         function registerUser() {
-            const input = document.getElementById('username-input').value.trim();
-            if(!input) {
+            const val = document.getElementById('username-input').value.trim();
+            if(!val) {
                 alert('تکایە ناوی خۆت بنووسە!');
                 return;
             }
-            currentUserName = input;
+            currentUserName = val;
+            localStorage.setItem("quiz_username", currentUserName);
             document.getElementById('register-modal').style.display = 'none';
-            document.getElementById('welcome-user-banner').innerText = 'بەخێر بێیت، ' + currentUserName;
-            document.getElementById('lb-user-name').innerText = currentUserName;
+            setupUser();
+        }
+
+        function setupUser() {
+            document.getElementById('welcome-user-banner').innerText = 'بەخێر بێیت ' + currentUserName + ' 🌸';
+            updateLeaderboard();
         }
 
         function showSection(sectionId, event) {
@@ -176,51 +278,80 @@
             event.currentTarget.classList.add('active');
         }
 
-        function startQuiz(subject) {
-            document.getElementById('quiz-area').style.display = 'block';
-            document.getElementById('current-subject-title').innerText = 'بابەت: ' + subject;
-            document.getElementById('question-text').innerText = 'پرسیاری وزاری و فکری بۆ ' + subject + ': کام لەم خاڵانەی خوارەوە ڕاستە سەبارەت به م بابه‌ته‌؟';
-            
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = `
-                <button class="option-btn" onclick="answerQuestion(true)">A) بژاردەی یەکەم (وەڵامی ڕاستی وزاری)</button>
-                <button class="option-btn" onclick="answerQuestion(false)">B) بژاردەی دووەم</button>
-                <button class="option-btn" onclick="answerQuestion(false)">C) بژاردەی سێیەم</button>
-                <button class="option-btn" onclick="answerQuestion(false)">D) بژاردەی چوارەم</button>
-            `;
-        }
+        function startQuiz(subKey) {
+            currentSubjectKey = subKey;
+            currentSubjectIndex = 0;
 
-        function answerQuestion(isCorrect) {
-            if(isCorrect) {
-                totalSolved++;
-                alert('ئافەرین! وەڵامەکەت ڕاست بوو.');
-            } else {
-                alert('داخەکەم! وەڵامەکەت هەڵە بوو.');
+            if(!userScores[currentSubjectKey]) {
+                userScores[currentSubjectKey] = { solvedToday: 0, correctCount: 0 };
             }
-            document.getElementById('user-stats').innerText = `تێکڕای شیکارکردنی تۆ: ${totalSolved}/١٤٠ پرسیار`;
-            document.getElementById('lb-user-score').innerText = totalSolved + ' / ١٤٠';
-            document.getElementById('lb-user-pts').innerText = totalSolved * 10;
+
+            document.getElementById('quiz-area').style.display = 'block';
+            loadQuestion();
         }
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
-            if(!message) return;
+        function loadQuestion() {
+            const subData = quizBank[currentSubjectKey];
+            const userSubProgress = userScores[currentSubjectKey];
 
-            const chatBox = document.getElementById('chat-box');
-            const userMsg = document.createElement('div');
-            userMsg.className = 'chat-msg user';
-            userMsg.innerText = message;
-            chatBox.appendChild(userMsg);
-            input.value = '';
+            document.getElementById('daily-limit-badge').innerText = `پرسیاری ${userSubProgress.solvedToday + 1} لە ٥ی ئەمڕۆ`;
+            
+            // Total score calculate
+            let totalCorrect = 0;
+            Object.values(userScores).forEach(s => totalCorrect += (s.correctCount || 0));
+            document.getElementById('user-total-score').innerText = `تێکڕای وەڵامی ڕاست: ${totalCorrect}/140`;
 
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'chat-msg bot';
-                botMsg.innerText = 'پێشنیار دەکەم کاتەکانت دابەش بکەیت و ڕۆژانە کاتێک بۆ مراجەعەی بابەتە زانستییەکان و بەشی ڕێزمان دابنێیت!';
-                chatBox.appendChild(botMsg);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1000);
+            if (userSubProgress.solvedToday >= 5) {
+                document.getElementById('question-box-body').innerHTML = `
+                    <h3 style="color: var(--dark-pink); text-align: center;">🎉 ئافەرین!</h3>
+                    <p style="text-align: center; margin-top: 10px;">تۆ ٥ پرسیاری ڕۆژانەی تەواوت بۆ ئەم بابەتە شیکار کردووە. بەیانی وەڵامی زیاتر بدەرەوە یان بابەتێکی تر هەڵبژێرە.</p>
+                `;
+                return;
+            }
+
+            const qObj = subData[userSubProgress.solvedToday];
+            document.getElementById('question-text').innerText = qObj.q;
+
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+
+            qObj.opts.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = optText;
+                btn.onclick = () => handleAnswer(idx === qObj.a);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(isCorrect) {
+            if(isCorrect) {
+                alert('👏 دەستخۆش! وەڵامەکەت ڕاستە.');
+                userScores[currentSubjectKey].correctCount++;
+            } else {
+                alert('❌ داخەکەم وەڵامەکەت هەڵە بوو.');
+            }
+
+            userScores[currentSubjectKey].solvedToday++;
+            localStorage.setItem("user_scores", JSON.stringify(userScores));
+            
+            updateLeaderboard();
+            loadQuestion();
+        }
+
+        function updateLeaderboard() {
+            let totalCorrect = 0;
+            Object.values(userScores).forEach(s => totalCorrect += (s.correctCount || 0));
+
+            const lbBody = document.getElementById('leaderboard-body');
+            lbBody.innerHTML = `
+                <tr>
+                    <td>👑 1</td>
+                    <td><b>${currentUserName || 'بەکاربەر'}</b></td>
+                    <td><b>${totalCorrect} / ١٤٠</b></td>
+                    <td><b>${totalCorrect * 10} خاڵ</b></td>
+                </tr>
+            `;
         }
     </script>
 </body>
