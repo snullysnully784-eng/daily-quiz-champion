@@ -3,153 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> پلاتفۆرمی کویزی ڕۆژانە و پلانی خوێندنی دییە و سنە</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>پلاتفۆرمی کویز و پلانی ڕۆژانەی دییە و سنە</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #f8a5c2;
             --soft-pink: #fde8ed;
-            --light-pink: #fff0f3;
             --accent-pink: #f78fb3;
             --dark-pink: #d86a8a;
-            --deep-pink: #b84166;
+            --bg-light: #fff0f3;
             --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --shadow: 0 10px 25px rgba(248, 165, 194, 0.25);
-            --radius: 18px;
+            --text-color: #4a4a4a;
+            --shadow: 0 8px 20px rgba(248, 165, 194, 0.2);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-color); padding-bottom: 40px; }
+        header { background: linear-gradient(135deg, #f8a5c2, #f78fb3); color: white; padding: 20px; text-align: center; box-shadow: var(--shadow); }
+        header h1 { font-size: 22px; margin-bottom: 5px; }
+        
+        /* Modal for Registration */
+        #register-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
+            box-shadow: var(--shadow); border: 2px solid var(--primary-pink);
+        }
+        .modal-content h2 { color: var(--dark-pink); margin-bottom: 15px; font-size: 20px; }
+        .modal-content input {
+            width: 100%; padding: 12px; border: 1px solid var(--primary-pink); border-radius: 12px;
+            margin-bottom: 15px; outline: none; text-align: center; font-size: 16px; background: var(--bg-light);
+        }
+        .modal-content button {
+            background: var(--accent-pink); color: white; border: none; padding: 12px 20px;
+            border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px;
+        }
+        
+        nav { display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; padding: 0 10px; }
+        .tab-btn { background-color: var(--card-bg); border: 2px solid var(--primary-pink); color: var(--dark-pink); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 14px; }
+        .tab-btn.active, .tab-btn:hover { background-color: var(--accent-pink); color: white; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
+        .section { display: none; background: var(--card-bg); padding: 20px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid var(--soft-pink); }
+        .section.active { display: block; }
+        .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 15px; }
+        .subject-card { background: var(--soft-pink); padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .subject-card:hover { border-color: var(--primary-pink); transform: translateY(-3px); }
+        .subject-card h3 { color: var(--dark-pink); font-size: 15px; }
+        .subject-card p { font-size: 12px; color: #666; margin-top: 4px; }
+        .quiz-container { margin-top: 20px; }
+        .question-box { background: var(--soft-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .options { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .option-btn { background: white; border: 1px solid var(--primary-pink); padding: 10px; border-radius: 8px; cursor: pointer; text-align: right; transition: 0.2s; font-size: 14px; }
+        .option-btn:hover { background: var(--soft-pink); }
+        .stats-badge { display: inline-block; background: var(--accent-pink); color: white; padding: 5px 12px; border-radius: 15px; font-size: 13px; margin-bottom: 15px; }
+        .chat-box { height: 250px; border: 1px solid var(--soft-pink); border-radius: 12px; overflow-y: auto; padding: 12px; background: #fffafa; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .chat-msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 13px; }
+        .chat-msg.bot { background: var(--soft-pink); color: var(--dark-pink); align-self: flex-start; }
+        .chat-msg.user { background: var(--accent-pink); color: white; align-self: flex-end; }
+        .chat-input-area { display: flex; gap: 8px; }
+        .chat-input-area input { flex: 1; padding: 10px 14px; border: 1px solid var(--primary-pink); border-radius: 20px; outline: none; font-size: 14px; }
+        .btn-send { background: var(--accent-pink); color: white; border: none; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        .leaderboard-table th, .leaderboard-table td { padding: 10px; text-align: center; border-bottom: 1px solid var(--soft-pink); }
+        .leaderboard-table th { background-color: var(--soft-pink); color: var(--dark-pink); }
+        .rank-1 { font-weight: bold; color: #d4af37; }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Modal -->
+    <div id="register-modal">
+        <div class="modal-content">
+            <h2>بەخێر بێیت بۆ پلاتفۆرمی پۆلی ١٢ ✨</h2>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">تکایە ناوێک بنووسە بۆ ئەوەی لە لیدەربۆرد ناوت تۆمار ببێت:</p>
+            <input type="text" id="username-input" placeholder="ناوی تەواوی خۆت...">
+            <button onclick="registerUser()">چوونەژوورەوە و دەستپێکردن</button>
+        </div>
+    </div>
+
+    <header>
+        <h1>کویزی ڕۆژانە و پلانی خوێندن پۆلی ١٢ ✨</h1>
+        <p id="welcome-user-banner">ڕۆژانە ٥ پرسیار شیکار بکە</p>
+    </header>
+
+    <div class="container">
+        <nav>
+            <button class="tab-btn active" onclick="showSection('quiz-section', event)">کویزی ڕۆژانە</button>
+            <button class="tab-btn" onclick="showSection('planner-section', event)">پلاندنەر (AI Chat)</button>
+            <button class="tab-btn" onclick="showSection('leaderboard-section', event)">پلەی بۆرد / Leaderboard</button>
+        </nav>
+
+        <div id="quiz-section" class="section active">
+            <h2>بابەتێک هەڵبژێرە</h2>
+            <p style="color: #777; margin-bottom: 15px; font-size: 13px;">کۆی گشتی ١٤٠ پرسیاری مانگانە (ڕۆژانە ٥ پرسیار بۆ هەر بابەتێک)</p>
+
+            <div class="subjects-grid">
+                <div class="subject-card" onclick="startQuiz('زیندەزانی (بەندی ١ و ٢)')"><h3>زیندەزانی</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('فیزیا (بەندی ١ و ٢)')"><h3>فیزیا</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('کیمیا (بەندی ١ و ٢)')"><h3>کیمیا</h3><p>بەندی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('بیرکاری (بەشی ١ و ٢)')"><h3>بیرکاری</h3><p>بەشی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('عەرەبی (وەحدەی ١ و ٢)')"><h3>عەرەبی</h3><p>وەحدەی ۱ و ۲</p></div>
+                <div class="subject-card" onclick="startQuiz('کوردی (ڕێژەی ڕاگەیاندن...)')"><h3>کوردی</h3><p>ڕێژەی ڕاگەیاندن و مەرجی</p></div>
+                <div class="subject-card" onclick="startQuiz('ئاین (وانەی ١ تا ٥)')"><h3>ئاین</h3><p>وانەی ۱ تا ۵</p></div>
+                <div class="subject-card" onclick="startQuiz('ئینگلیزی (Unit 1-3)')"><h3>ئینگلیزی</h3><p>Unit 1, 2, 3</p></div>
+            </div>
+
+            <div id="quiz-area" class="quiz-container" style="display: none;">
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--soft-pink);">
+                <span class="stats-badge" id="user-stats">تێکڕای شیکارکردنی تۆ: ٠/١٤٠ پرسیار</span>
+                <h3 id="current-subject-title" style="color: var(--dark-pink); margin-bottom: 10px;">بابەت: </h3>
+                <div class="question-box">
+                    <p id="question-text" style="font-weight: 600;">پرسیاری ١: ...</p>
+                    <div class="options" id="options-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="planner-section" class="section">
+            <h2>یارمەدیدەری زیرەک بۆ پلانی خوێندن 🤖💡</h2>
+            <p style="margin-bottom: 12px; color: #666; font-size: 13px;">پرسیار لە ئەی ئای بکە بۆ ڕێکخستنی کاتەکانی خوێندن.</p>
+            <div class="chat-box" id="chat-box">
+                <div class="chat-msg bot">سڵاو! من یاریدەدەری ئەی ئایم. چەند کاتژمێر ئەتوانیت بخوێنیت؟</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="وەڵامەکەت بنووسە...">
+                <button class="btn-send" onclick="sendMessage()">ناردن</button>
+            </div>
+        </div>
+
+        <div id="leaderboard-section" class="section">
+            <h2>🏆 پلەی بۆردی یەکەمەکانی مانگ</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 10px;">ڕیزبەندی بەکاربەرەکان بە پێی زۆرترین وەڵامی ڕاست:</p>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>پلە</th>
+                        <th>ناو</th>
+                        <th>وەڵامی ڕاست</th>
+                        <th>پۆینت</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr class="rank-1"><td>1 👑</td><td id="lb-user-name">-</td><td id="lb-user-score">٠ / ١٤٠</td><td id="lb-user-pts">٠</td></tr>
+                    <tr><td>2</td><td>سارا محەمەد</td><td>١٣٢ / ١٤٠</td><td>١٣٢0</td></tr>
+                    <tr><td>3</td><td>ڕێبین عومەر</td><td>١٢٥ / ١٤٠</td><td>١٢٥0</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let currentUserName = "";
+        let totalSolved = 0;
+
+        function registerUser() {
+            const input = document.getElementById('username-input').value.trim();
+            if(!input) {
+                alert('تکایە ناوی خۆت بنووسە!');
+                return;
+            }
+            currentUserName = input;
+            document.getElementById('register-modal').style.display = 'none';
+            document.getElementById('welcome-user-banner').innerText = 'بەخێر بێیت، ' + currentUserName;
+            document.getElementById('lb-user-name').innerText = currentUserName;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', sans-serif;
+        function showSection(sectionId, event) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
-        body {
-            background-color: var(--light-pink);
-            color: var(--text-main);
-            padding-bottom: 50px;
+        function startQuiz(subject) {
+            document.getElementById('quiz-area').style.display = 'block';
+            document.getElementById('current-subject-title').innerText = 'بابەت: ' + subject;
+            document.getElementById('question-text').innerText = 'پرسیاری وزاری و فکری بۆ ' + subject + ': کام لەم خاڵانەی خوارەوە ڕاستە سەبارەت به م بابه‌ته‌؟';
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = `
+                <button class="option-btn" onclick="answerQuestion(true)">A) بژاردەی یەکەم (وەڵامی ڕاستی وزاری)</button>
+                <button class="option-btn" onclick="answerQuestion(false)">B) بژاردەی دووەم</button>
+                <button class="option-btn" onclick="answerQuestion(false)">C) بژاردەی سێیەم</button>
+                <button class="option-btn" onclick="answerQuestion(false)">D) بژاردەی چوارەم</button>
+            `;
         }
 
-        /* User Header Bar */
-        .user-bar {
-            background: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--soft-pink);
-            font-size: 14px;
+        function answerQuestion(isCorrect) {
+            if(isCorrect) {
+                totalSolved++;
+                alert('ئافەرین! وەڵامەکەت ڕاست بوو.');
+            } else {
+                alert('داخەکەم! وەڵامەکەت هەڵە بوو.');
+            }
+            document.getElementById('user-stats').innerText = `تێکڕای شیکارکردنی تۆ: ${totalSolved}/١٤٠ پرسیار`;
+            document.getElementById('lb-user-score').innerText = totalSolved + ' / ١٤٠';
+            document.getElementById('lb-user-pts').innerText = totalSolved * 10;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: bold;
-            color: var(--dark-pink);
-        }
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if(!message) return;
 
-        .change-name-btn {
-            background: var(--soft-pink);
-            border: none;
-            color: var(--dark-pink);
-            padding: 5px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 12px;
-        }
+            const chatBox = document.getElementById('chat-box');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.innerText = message;
+            chatBox.appendChild(userMsg);
+            input.value = '';
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #f8a5c2 0%, #f78fb3 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg bot';
+                botMsg.innerText = 'پێشنیار دەکەم کاتەکانت دابەش بکەیت و ڕۆژانە کاتێک بۆ مراجەعەی بابەتە زانستییەکان و بەشی ڕێزمان دابنێیت!';
+                chatBox.appendChild(botMsg);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
         }
-
-        header h1 {
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
-
-        header p {
-            font-size: 14px;
-            opacity: 0.95;
-        }
-
-        /* Navigation Tabs */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 25px 0;
-            padding: 0 15px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background-color: var(--card-bg);
-            border: 2px solid var(--primary-pink);
-            color: var(--dark-pink);
-            padding: 12px 22px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--accent-pink);
-            color: white;
-            border-color: var(--accent-pink);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(247, 143, 179, 0.4);
-        }
-
-        /* Container */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            display: none;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--soft-pink);
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Subjects Grid */
-        .grid-title {
-            font-size: 18px;
-            color: var(--dark-pink);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15
+    </script>
+</body>
+</html>
