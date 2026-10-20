@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> پلاتفۆرمی کویزی ڕۆژانە و پلانی خوێندنی دییە و سنە</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #f8a5c2;
+            --soft-pink: #fde8ed;
+            --light-pink: #fff0f3;
+            --accent-pink: #f78fb3;
+            --dark-pink: #d86a8a;
+            --deep-pink: #b84166;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --shadow: 0 10px 25px rgba(248, 165, 194, 0.25);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-pink);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        /* User Header Bar */
+        .user-bar {
+            background: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--soft-pink);
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            color: var(--dark-pink);
+        }
+
+        .change-name-btn {
+            background: var(--soft-pink);
+            border: none;
+            color: var(--dark-pink);
+            padding: 5px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #f8a5c2 0%, #f78fb3 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        /* Navigation Tabs */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0;
+            padding: 0 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-pink);
+            color: var(--dark-pink);
+            padding: 12px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--accent-pink);
+            color: white;
+            border-color: var(--accent-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(247, 143, 179, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--soft-pink);
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Subjects Grid */
+        .grid-title {
+            font-size: 18px;
+            color: var(--dark-pink);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15
