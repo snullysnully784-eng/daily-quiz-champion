@@ -24,7 +24,7 @@
         /* Registration Modal */
         #register-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
+            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 10000;
         }
         .modal-content {
             background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
@@ -61,14 +61,12 @@
         .option-btn:hover { background: var(--soft-pink); border-color: var(--dark-pink); }
         .stats-badge { display: inline-block; background: var(--accent-pink); color: white; padding: 6px 14px; border-radius: 15px; font-size: 13px; margin-bottom: 15px; }
 
-        /* Schedule / Timetable Cards */
         .schedule-card { background: var(--soft-pink); border-right: 5px solid var(--dark-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
         .schedule-card h3 { color: var(--dark-pink); margin-bottom: 8px; font-size: 16px; }
         .schedule-card ul { list-style: none; padding-right: 15px; }
         .schedule-card li { margin-bottom: 6px; font-size: 14px; position: relative; }
         .schedule-card li::before { content: "•"; color: var(--dark-pink); font-weight: bold; position: absolute; right: -12px; }
 
-        /* Leaderboard */
         .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         .leaderboard-table th, .leaderboard-table td { padding: 12px; text-align: center; border-bottom: 1px solid var(--soft-pink); }
         .leaderboard-table th { background-color: var(--soft-pink); color: var(--dark-pink); }
@@ -82,7 +80,7 @@
             <h2>بەخێر بێیت بۆ کویزی وزاری پۆلی ١٢ 🌸</h2>
             <p style="font-size: 13px; color: #666; margin-bottom: 15px;">ناوی خۆت تۆمار بکە بۆ بەشداری لە ڕیزبەندی لیدەربۆرد:</p>
             <input type="text" id="username-input" placeholder="ناوی تەواوت بنووسە...">
-            <button onclick="registerUser()">دەستپێکردن</button>
+            <button type="button" id="start-btn" onclick="registerUser()">دەستپێکردن</button>
         </div>
     </div>
 
@@ -98,7 +96,6 @@
             <button class="tab-btn" onclick="showSection('leaderboard-section', event)">پلەی بۆرد / Leaderboard</button>
         </nav>
 
-        <!-- Quiz Section -->
         <div id="quiz-section" class="section active">
             <h2>بابەتێک هەڵبژێرە</h2>
             <p style="color: #777; margin-bottom: 15px; font-size: 13px;">تەنها ڕێگەت پێدەدرێت ڕۆژانە ٥ پرسیاری وزاری شیکار بکەیت لە هەر بابەتێکدا.</p>
@@ -127,7 +124,6 @@
             </div>
         </div>
 
-        <!-- Schedule Section -->
         <div id="schedule-section" class="section">
             <h2 style="color: var(--dark-pink); margin-bottom: 15px;">📅 خشتەی تایبەتی جێبەجێکردنی خوێندن</h2>
             
@@ -144,7 +140,7 @@
                 <h3>📌 سێشەممە، چوارشەممە، پێنجشەممە</h3>
                 <ul>
                     <li><b>٠٢:٠٠ - ٠٥:٠٠ی ئێوارە:</b> دەستپێکردنی بڕی خوێندنی یەکەم</li>
-                    <li><b>٠٧:٠٠ - ١٠:٠٠ یان ١١:٠٠ی شەو:</b> بەشی دووەمی خوێندن</li>
+                    <li><b>٠٧:٠0 - ١٠:٠٠ یان ١١:٠٠ی شەو:</b> بەشی دووەمی خوێندن</li>
                 </ul>
             </div>
 
@@ -158,7 +154,6 @@
             </div>
         </div>
 
-        <!-- Leaderboard Section -->
         <div id="leaderboard-section" class="section">
             <h2>🏆 پلەی بۆردی ڕاستەقینە (یەکەمەکانی مانگ)</h2>
             <p style="color: #666; font-size: 13px; margin-bottom: 15px;">ڕیزبەندی بەکاربەرە بەشداریبووەکان بەپێی شیکاری ڕاستی پرسیارە وزارییەکان:</p>
@@ -172,14 +167,12 @@
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                    <!-- Dynamic Rows -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // Real Ministerial Questions Bank (Grade 12 Kurdistan)
         const quizBank = {
             bio: [
                 { q: "وزاری: کام لەمانەی خوارەوە بەشێک نییە لە ڕێنیشاندانی ناوکی؟", opts: ["پرۆمۆتەر", "ڕیبۆسۆم", "ئۆپەرۆن", "ئینتڕۆن"], a: 1 },
@@ -190,7 +183,7 @@
             ],
             phy: [
                 { q: "وزاری: یاسای کەمترین کارکردن (Work-Energy Theorem) پەیوەندی نێوان کار و چی دەردەبڕێت؟", opts: ["گۆڕانی وزەی جووڵە", "هێزی لێکخشاندن", "کێش", "خێرایی گۆشەیی"], a: 0 },
-                { q: "وزاری: یەکەی پێوانی زەبری هێز (Torque) لە سیستەمی me-SI بریتییە لە:", opts: ["N.m", "Joule", "Watt", "N/m"], a: 0 },
+                { q: "وزاری: یەکەی پێوانی زەبری هێز (Torque) لە سیستەمی SI بریتییە لە:", opts: ["N.m", "Joule", "Watt", "N/m"], a: 0 },
                 { q: "وزاری: کاتێک تەوەرەی خولانەوە بکەوێتە سەر چەقی بارستایی تەنێک، زەبری سستی (I) چۆن دەبێت؟", opts: ["کەمترین بڕە", "زیاترین بڕە", "سفر دەبێت", "بێ کۆتایی دەبێت"], a: 0 },
                 { q: "وزاری: تەوژمی هێز (Impulse) یەکسانە بە گۆڕانکاری لە چی؟", opts: ["بڕی جووڵە (Momentum)", "وزەی شاراوە", "خێرایی ساتەوەخت", "تاودانی زەوی"], a: 0 },
                 { q: "وزاری: ئەگەر خێرایی تەنێک دوو هێندە بێت، وزەی جووڵەکەی (KE) چەند هێندە دەبێت؟", opts: ["4 هێندە", "2 هێندە", "8 هێندە", "نیوە دەبێت"], a: 0 }
@@ -210,11 +203,11 @@
                 { q: "وزاری: نەخشەی f(x) = |x| لە خاڵی x = 0 دا دارای چییە؟", opts: ["نەبوونی داهاتوو (Not Differentiable)", "داهاتووی یەکسان بە 1", "لێژبوونی بێ کۆتایی", "خاڵی وەرگەڕان"], a: 0 }
             ],
             ara: [
-                { q: "وزاری: "ما" في جملة "ما أجمَلَ السَّماءَ" هي ما:", opts: ["التعجبية", "النافية", "الموصولة", "الاستفهامية"], a: 0 },
-                { q: "وزاری: إعراب كلمة "طالباً" في (يا طالباً العِلمَ اجتهد):", opts: ["منادى منصوب", "فاعل مرفوع", "مفعول به", "مضاف إليه"], a: 0 },
+                { q: "وزاری: ما في جملة (ما أجمَلَ السَّماءَ) هي ما:", opts: ["التعجبية", "النافية", "الموصولة", "الاستفهامية"], a: 0 },
+                { q: "وزاری: إعراب كلمة (طالباً) في (يا طالباً العِلمَ اجتهد):", opts: ["منادى منصوب", "فاعل مرفوع", "مفعول به", "مضاف إليه"], a: 0 },
                 { q: "وزاری: الفعل المشتق من (استغفار) هو:", opts: ["استغفرَ", "غَفَرَ", "غافِر", "مغفور"], a: 0 },
-                { q: "وزاری: "إنَّ المعلمينَ محبوبونَ"، كلمة "المعلمين" هي:", opts: ["اسم إن منصوب بالياء", "خبر إن مرفوع", "مبتدأ مرفوع", "فاعل منصوب"], a: 0 },
-                { q: "وزاری: الوزن الصرفي لكلمة "مُستشفی" هو:", opts: ["مُستفعَل", "مُسْتفِعْل", "مُتَفَعِّل", "فُعْلَى"], a: 0 }
+                { q: "وزاری: (إنَّ المعلمينَ محبوبونَ)، كلمة (المعلمين) هي:", opts: ["اسم إن منصوب بالياء", "خبر إن مرفوع", "مبتدأ مرفوع", "فاعل منصوب"], a: 0 },
+                { q: "وزاری: الوزن الصرفي لكلمة (مُستشفی) هو:", opts: ["مُستفعَل", "مُسْتفِعْل", "مُتَفَعِّل", "فُعْلَى"], a: 0 }
             ],
             kur: [
                 { q: "وزاری: لە ڕستەی (ئەگەر سەعی بکەیت، سەردەکەویت)، ئامرازی مەرج بریتییە لە:", opts: ["ئەگەر", "سەعی", "بکەیت", "سەردەکەویت"], a: 0 },
@@ -232,36 +225,25 @@
             ],
             eng: [
                 { q: "Ministerial: Choose the correct option: If he _______ hard, he will pass the exam.", opts: ["studies", "studied", "will study", "study"], a: 0 },
-                { q: "Ministerial: "She has been working here _______ 2020." Which preposition is correct?", opts: ["since", "for", "in", "during"], a: 0 },
+                { q: "Ministerial: 'She has been working here _______ 2020.' Which preposition is correct?", opts: ["since", "for", "in", "during"], a: 0 },
                 { q: "Ministerial: What is the passive voice of: 'They built the bridge'?", opts: ["The bridge was built.", "The bridge is built.", "The bridge had built.", "The bridge built."], a: 0 },
                 { q: "Ministerial: Find the synonym of 'Crucial':", opts: ["Very Important", "Simple", "Small", "Useless"], a: 0 },
                 { q: "Ministerial: 'If I were you, I _______ buy that expensive car.'", opts: ["wouldn't", "won't", "don't", "haven't"], a: 0 }
             ]
         };
 
-        let currentUserName = localStorage.getItem("quiz_username") || "";
+        let currentUserName = "";
         let currentSubjectKey = "";
-        let currentSubjectIndex = 0;
-        
-        // Progress store per subject per user
-        let userScores = JSON.parse(localStorage.getItem("user_scores") || "{}");
-
-        window.onload = function() {
-            if(!currentUserName) {
-                document.getElementById('register-modal').style.display = 'flex';
-            } else {
-                setupUser();
-            }
-        };
+        let userScores = {};
 
         function registerUser() {
-            const val = document.getElementById('username-input').value.trim();
+            const inputField = document.getElementById('username-input');
+            const val = inputField.value.trim();
             if(!val) {
                 alert('تکایە ناوی خۆت بنووسە!');
                 return;
             }
             currentUserName = val;
-            localStorage.setItem("quiz_username", currentUserName);
             document.getElementById('register-modal').style.display = 'none';
             setupUser();
         }
@@ -280,7 +262,6 @@
 
         function startQuiz(subKey) {
             currentSubjectKey = subKey;
-            currentSubjectIndex = 0;
 
             if(!userScores[currentSubjectKey]) {
                 userScores[currentSubjectKey] = { solvedToday: 0, correctCount: 0 };
@@ -296,7 +277,6 @@
 
             document.getElementById('daily-limit-badge').innerText = `پرسیاری ${userSubProgress.solvedToday + 1} لە ٥ی ئەمڕۆ`;
             
-            // Total score calculate
             let totalCorrect = 0;
             Object.values(userScores).forEach(s => totalCorrect += (s.correctCount || 0));
             document.getElementById('user-total-score').innerText = `تێکڕای وەڵامی ڕاست: ${totalCorrect}/140`;
@@ -333,8 +313,6 @@
             }
 
             userScores[currentSubjectKey].solvedToday++;
-            localStorage.setItem("user_scores", JSON.stringify(userScores));
-            
             updateLeaderboard();
             loadQuestion();
         }
